@@ -76,7 +76,6 @@ class Encoder:
         ok so what is this regex looking for, exactly?
         python re reference: https://docs.python.org/3/library/re.html
         - the vertical bars | is OR, so re.findall will chunkate text as the pieces match, from left to right
-        - '\'s' would split up things like Andrej's -> (Andrej, 's)
         - ' ?\p{L}': optional space followed by 1+ unicode code points in the category "letter"
         - ' ?\p{N}': optional space followed by 1+ unicode code points in the category "number"
         - ' ?[^\s\p{L}\p{N}]+': optional space, then 1+ things that are NOT a whitespace, letter or number
@@ -282,7 +281,7 @@ class BPETokenizer:
 if __name__ == '__main__':
 
     # here is an encoding example
-    text = "Hello!! I'm Andrej Karpathy. It's 2022. w00t :D 🤗"
+    text = "Hello I am chirag, how r you doing today?"
     e = get_encoder()
     r = e.encode_and_show_work(text)
 
@@ -290,7 +289,6 @@ if __name__ == '__main__':
     print(text)
     print("First the text gets pre-tokenized, broken up into chunks, the outcome is:")
     print(r['tokens'])
-    # ['Hello', '!!', ' I', "'m", ' Andrej', ' Karpathy', '.', ' It', "'s", ' 2022', '.', ' w', '00', 't', ' :', 'D', ' 🤗']
     print("Then we iterate over each chunk and process them in turn...")
     for part in r['parts']:
         print(part)
@@ -298,7 +296,6 @@ if __name__ == '__main__':
     # {'token': '!!', 'token_bytes': b'!!', 'token_translated': '!!', 'token_merged': ['!!'], 'token_ix': [3228]}
     # {'token': ' I', 'token_bytes': b' I', 'token_translated': 'ĠI', 'token_merged': ['ĠI'], 'token_ix': [314]}
     # {'token': "'m", 'token_bytes': b"'m", 'token_translated': "'m", 'token_merged': ["'m"], 'token_ix': [1101]}
-    # {'token': ' Andrej', 'token_bytes': b' Andrej', 'token_translated': 'ĠAndrej', 'token_merged': ['ĠAndre', 'j'], 'token_ix': [10948, 73]}
     # {'token': ' Karpathy', 'token_bytes': b' Karpathy', 'token_translated': 'ĠKarpathy', 'token_merged': ['ĠK', 'arp', 'athy'], 'token_ix': [509, 5117, 10036]}
     # {'token': '.', 'token_bytes': b'.', 'token_translated': '.', 'token_merged': ['.'], 'token_ix': [13]}
     # {'token': ' It', 'token_bytes': b' It', 'token_translated': 'ĠIt', 'token_merged': ['ĠIt'], 'token_ix': [632]}
